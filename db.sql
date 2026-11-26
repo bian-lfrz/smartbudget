@@ -1,10 +1,8 @@
--- 1. Tabel Role (Menyimpan hak akses: mahasiswa & orang_tua)
 CREATE TABLE role (
     id_role SERIAL PRIMARY KEY,
     nama_role VARCHAR(20) NOT NULL UNIQUE
 );
 
--- 2. Tabel Pengguna (Menyimpan akun mahasiswa dan orang tua)
 CREATE TABLE pengguna (
     id_pengguna SERIAL PRIMARY KEY,
     id_role INTEGER NOT NULL REFERENCES role(id_role),
@@ -15,7 +13,6 @@ CREATE TABLE pengguna (
     password_diubah BOOLEAN NOT NULL DEFAULT FALSE
 );
 
--- 3. Tabel Pemasukan (Mencatat dana masuk mahasiswa)
 CREATE TABLE pemasukan (
     id_pemasukan SERIAL PRIMARY KEY,
     id_pengguna INTEGER NOT NULL REFERENCES pengguna(id_pengguna) ON DELETE CASCADE,
@@ -24,7 +21,6 @@ CREATE TABLE pemasukan (
     sumber VARCHAR(100) NOT NULL
 );
 
--- 4. Tabel Pengeluaran (Mencatat pengeluaran & komentar orang tua)
 CREATE TABLE pengeluaran (
     id_pengeluaran SERIAL PRIMARY KEY,
     id_pengguna INTEGER NOT NULL REFERENCES pengguna(id_pengguna) ON DELETE CASCADE,
@@ -35,7 +31,6 @@ CREATE TABLE pengeluaran (
     komentar_orang_tua TEXT NULL
 );
 
--- 5. Tabel Anggaran (Mencatat batas anggaran per kategori)
 CREATE TABLE anggaran (
     id_pengguna INTEGER NOT NULL REFERENCES pengguna(id_pengguna) ON DELETE CASCADE,
     kategori VARCHAR(100) NOT NULL,
